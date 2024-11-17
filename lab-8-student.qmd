@@ -1,6 +1,6 @@
 ---
 title: "Lab 8: Searching for Efficiency"
-author: "Your name here!"
+author: "Siddharth Venkiteswaran"
 format: html
 editor: source
 embed-resources: true
@@ -43,7 +43,9 @@ each variable, with the datatype of that variable immediately below it's name.
 
 ```{r}
 #| label: map-data-types-of-surveys
-
+surveys |>
+  map_chr(class) |>
+  bind_rows()
 
 ```
 
