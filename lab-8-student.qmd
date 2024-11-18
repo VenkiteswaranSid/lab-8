@@ -63,8 +63,14 @@ list output back into a data frame.
 
 ```{r}
 #| label: map-to-mutate-columns
-
-
+evals |>
+  map_at(.at = c("teacher_id", 
+                "weekday",
+                "academic_degree",
+                "seniority",
+                "sex"),
+         .f = as.factor) |>
+  bind_cols()
 ```
 
 Next up, we're going revisit Question 7 which asked:
