@@ -105,11 +105,9 @@ evals |>
            sex, 
            sen_level, 
            .keep_all = TRUE) |>
-  pivot_longer(
-    cols = c(academic_degree, sex, sen_level),
-    names_to = 'column_name',
-    values_to = 'count'
-  ) |>
+  pivot_longer(cols = c(academic_degree, sex, sen_level),
+               names_to = 'column_name',
+               values_to = 'count') |>
   group_by(column_name, count) |>
   summarise(n = n(), 
             .groups = 'drop') |>
@@ -124,14 +122,11 @@ evals |>
             "Masters" = sum(ma),
             "Doctorate" = sum(dr),
             "Professor" = sum(prof)) |>
-  kable(
-    format = "html"
-  ) |>
-  kable_styling(
-    bootstrap_options = "condensed",
-    full_width = FALSE, 
-    position = "center" ) |>
-  row_spec(1, background = "#EFEFEF")
+  kable(format = "html") |>
+  kable_styling(bootstrap_options = "condensed",
+                position = "center" ) |>
+  row_spec(1, 
+           background = "#EFEFEF")
 ```
 
 ::: {.callout-tip}
@@ -153,6 +148,15 @@ Question 1 asked you to use `across()` to make a table which summarized:
 
 ```{r}
 #| label: map-missing-values-of-fish
-
+fish |>
+  summarize(
+    Variable = names(fish), 
+    `Missing Count` = map_int(fish, 
+                              ~ sum(is.na(.)))  
+  ) |>
+  kable(format = "html",) |>
+  kable_styling(full_width = FALSE,
+                position = "center" )
+  
 
 ```
