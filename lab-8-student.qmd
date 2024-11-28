@@ -1,9 +1,21 @@
 ---
 title: "Lab 8: Searching for Efficiency"
 author: "Siddharth Venkiteswaran"
-format: html
+format: 
+  html:  
+    embed-resources: true
+    code-tools: true
+    toc: true
+    toc-depth: 2
 editor: source
-embed-resources: true
+message: false
+warning: false
+code-fold: true
+theme: sandstone
+execute: 
+  echo: true
+  output: true
+  error: false
 ---
 
 ```{r}
@@ -46,7 +58,9 @@ each variable, with the datatype of that variable immediately below it's name.
 #| label: map-data-types-of-surveys
 surveys |>
   map_chr(class) |>
-  bind_rows()
+  bind_rows() |>
+  kable() |>
+  kable_styling()
 
 ```
 
@@ -71,7 +85,9 @@ evals |>
                 "seniority",
                 "sex"),
          .f = as.factor) |>
-  bind_cols()
+  bind_cols() |>
+  kable() |>
+  kable_styling()
 ```
 
 Next up, we're going revisit Question 7 which asked:
