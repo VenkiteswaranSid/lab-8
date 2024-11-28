@@ -114,33 +114,33 @@ I'm using the `sen_level` classification from Challenge 3
 #| label: double-pivot-for-summary-table
 evals |>
   mutate(sen_level = if_else(as.numeric(seniority) <= 4, 
-                 "junior", 
-                 "senior"))  |>
+                            "junior", 
+                            "senior")) |>
   distinct(teacher_id, 
            academic_degree, 
            sex, 
            sen_level, 
            .keep_all = TRUE) |>
   pivot_longer(cols = c(academic_degree, sex, sen_level),
-               names_to = 'column_name',
-               values_to = 'count') |>
-  group_by(column_name, count) |>
-  summarise(n = n(), 
-            .groups = 'drop') |>
-  pivot_wider(names_from = count, 
+               names_to = 'characteristic',
+               values_to = 'category') |>
+  count(category) |>
+  pivot_wider(names_from = category, 
               values_from = n,
               values_fill = 0) |>
-  summarize("Female" = sum(female),
-            "Male" = sum(male),
-            "Junior (4 years or less)" = sum(ma),
-            "Senior (more than 4 years)" = sum(senior),
-            "No Degree" = sum(no_dgr),
-            "Masters" = sum(ma),
-            "Doctorate" = sum(dr),
-            "Professor" = sum(prof)) |>
+  rename(
+    "Female" = female,
+    "Male" = male,
+    "Junior (4 years or less)" = junior,
+    "Senior (more than 4 years)" = senior,
+    "No Degree" = no_dgr,
+    "Masters" = ma,
+    "Doctorate" = dr,
+    "Professor" = prof
+  ) |>
   kable(format = "html") |>
   kable_styling(bootstrap_options = "condensed",
-                position = "center" ) |>
+                position = "center") |>
   row_spec(1, 
            background = "#EFEFEF")
 ```
